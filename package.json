@@ -2,9 +2,9 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",  // This should point to your actual entry file
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",  // Add the start script to run your app
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
