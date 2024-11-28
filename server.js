@@ -1,19 +1,20 @@
 const express = require('express');
+const cors = require('cors');  // Use the CORS middleware
 const app = express();
+
+// CORS configuration: Allow all origins (you can change '*' to your frontend URL in production)
+app.use(cors({
+  origin: '*',  // Allow all origins, can be changed to specific domain in production
+  methods: ['GET', 'POST', 'OPTIONS'],  // Allowed methods
+  allowedHeaders: ['Content-Type'],  // Allowed headers
+  credentials: true  // Allow credentials (cookies, etc.)
+}));
 
 // Use JSON middleware to parse request bodies
 app.use(express.json());
 
-// CORS configuration: Allow all origins (you can change '*' to your frontend URL in production)
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');  // '*' allows all origins; replace with your frontend domain for production
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // Allow GET, POST, and OPTIONS methods
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // Allow Content-Type header for JSON requests
-  next();
-});
-
 // Handle preflight OPTIONS requests for all routes
-app.options('*', (req, res) => res.sendStatus(200)); // Respond with status 200 for OPTIONS requests
+app.options('*', (req, res) => res.sendStatus(200));  // Respond with status 200 for OPTIONS requests
 
 let username = null;
 let password = null;
