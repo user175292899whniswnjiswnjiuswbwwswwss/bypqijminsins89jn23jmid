@@ -2,8 +2,9 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "random-file.js",
+  "main": "server.js",  // This should point to your actual entry file
   "scripts": {
+    "start": "node server.js",  // Add the start script to run your app
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
