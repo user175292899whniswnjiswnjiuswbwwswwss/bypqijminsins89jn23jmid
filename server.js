@@ -3,7 +3,17 @@ const cors = require('cors');
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+// CORS configuration: Allow all origins or specify the domain for production
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');  // Replace '*' with a specific domain like 'https://yourfrontend.com' for better security
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // Allow GET, POST, and OPTIONS methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');  // Allow Content-Type header for JSON requests
+  next();
+});
+
+// Handle OPTIONS requests for preflight
+app.options('*', cors());  // This will handle OPTIONS preflight requests for all routes
 
 let username = null;
 let password = null;
@@ -70,14 +80,14 @@ app.post('/save-second-post-data', (req, res) => {
   res.status(200).send('Second POST data saved.');
 });
 
-// Endpoint to reset first POST data (for debugging, can be optional)
+// Endpoint to reset first POST data (for debugging, optional)
 app.post('/reset-first-post-data', (req, res) => {
   firstPuppeteerPostData = null;
   console.log('First POST data reset.');
   res.sendStatus(200);
 });
 
-// Endpoint to reset second POST data (for debugging, can be optional)
+// Endpoint to reset second POST data (for debugging, optional)
 app.post('/reset-second-post-data', (req, res) => {
   secondPuppeteerPostData = null;
   console.log('Second POST data reset.');
